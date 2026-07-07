@@ -8,6 +8,10 @@
 // hash number is not too large and ranged between 100 - BUCKET_SIZE
 typedef struct Bucket {
   Entry *head;
-} bucket;
+} Bucket;
+
+// Insert the key-val into bucket, first check the index, then check the Entry
+// pointed from the Bucket.
+void insert(Bucket *bucket[], unsigned long hash, char *key, int value);
 
 #endif
