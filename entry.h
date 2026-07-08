@@ -9,7 +9,5 @@ typedef struct Entry {
 } Entry;
 
 Entry *create_entry(char *key, int valua);
-void free_entry(Entry *entry);
-void link_entry(Entry *d, Entry *t);
 
 #endif

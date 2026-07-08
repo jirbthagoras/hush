@@ -9,7 +9,3 @@ Entry *create_entry(char *key, int value) {
   new_entry->next = NULL;
   return new_entry;
 };
-
-void link_entry(Entry *d, Entry *t) { d->next = t; }
-
-void free_entry(Entry *entry) { free(entry); };
