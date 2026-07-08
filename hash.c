@@ -11,4 +11,4 @@ ui64 hash(unsigned char *s) {
   return hash;
 }
 
-size array_indices(ui64 h, size ts) { return h & ts; };
+size squish_hash(ui64 h, size ts) { return h % ts; };
