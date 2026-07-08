@@ -13,5 +13,6 @@ typedef struct Bucket {
 // Insert the key-val into bucket, first check the index, then check the Entry
 // pointed from the Bucket.
 void insert(Bucket *bucket[], unsigned long hash, char *key, int value);
+void *get(Bucket *bucket[], unsigned long hash, char *key);
 
 #endif

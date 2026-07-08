@@ -29,7 +29,6 @@ void destroy_table(HashTable *table) {
   for (size_t i = 0; i < table->size; i++) {
     Entry *current = table->bucket[i].head;
 
-    // Traverse
     while (current != NULL) {
       Entry *temp = current;
       current = current->next;

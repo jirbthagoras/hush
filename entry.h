@@ -8,6 +8,6 @@ typedef struct Entry {
   struct Entry *next;
 } Entry;
 
-Entry *create_entry(char *key, int valua);
+Entry *create_entry(char *key, int value);
 
 #endif
