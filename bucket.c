@@ -2,21 +2,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-Entry *create_entry(char *key, int value) {
+Entry *create_entry(unsigned char *key, int value) {
   Entry *new_entry = malloc(sizeof(Entry));
-  new_entry->key = strdup(key);
+  new_entry->key = strdup((char *)key);
   new_entry->value = value;
   new_entry->next = NULL;
   return new_entry;
 };
 
-void insert(Bucket *bucket[], unsigned long hash, char *key, int value) {
+void insert(Bucket *bucket, unsigned long hash, unsigned char *key, int value) {
   Entry *new_entry = create_entry(key, value);
 
-  if (bucket[hash]->head == NULL)
-    bucket[hash]->head = new_entry;
+  if (bucket[hash].head == NULL)
+    bucket[hash].head = new_entry;
   else {
-    Entry *current = bucket[hash]->head;
+    Entry *current = bucket[hash].head;
     while (current->next != NULL) {
       current = current->next;
     }
@@ -24,34 +24,34 @@ void insert(Bucket *bucket[], unsigned long hash, char *key, int value) {
   }
 }
 
-void *get(Bucket *bucket[], unsigned long hash, char *key) {
-  if (bucket[hash] == NULL)
-    return NULL;
+int get(Bucket *bucket, unsigned long hash, unsigned char *key) {
+  if (bucket[hash].head == NULL)
+    return -1;
 
-  Entry *current = bucket[hash]->head;
+  Entry *current = bucket[hash].head;
   while (current != NULL) {
-    if (strcmp(key, current->key))
-      return (void *)&current->value;
+    if (!strcmp((char *)key, current->key))
+      return current->value;
     current = current->next;
   }
 
-  return NULL;
+  return -1;
 }
 
-void remove(Bucket *bucket[], unsigned long hash, char *key) {
-  if (bucket[hash] == NULL)
+void remove_entry(Bucket *bucket, unsigned long hash, char *key) {
+  if (bucket[hash].head == NULL)
     return;
 
-  Entry *current = bucket[hash]->head;
-  Entry *prev;
+  Entry *current = bucket[hash].head;
+  Entry *prev = bucket[hash].head;
 
   // Loop through the entries
   while (current != NULL) {
     // If key matches
-    if (strcmp(key, current->key)) {
+    if (!strcmp(key, current->key)) {
       // If this entry is a head
-      if (current == bucket[hash]->head) {
-        bucket[hash]->head = current->next;
+      if (current == bucket[hash].head) {
+        bucket[hash].head = current->next;
       }
       prev->next = current->next;
       free(current);
